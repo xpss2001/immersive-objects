@@ -1,4 +1,4 @@
-package com.example;
+package com.immersiveobjects;
 
 import com.google.inject.Provides;
 import javax.inject.Inject;
@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.ChatMessageType;
 import net.runelite.api.Client;
 import net.runelite.api.GameState;
+import net.runelite.api.events.CommandExecuted;
 import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.events.GameTick;
 import net.runelite.client.config.ConfigManager;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
@@ -16,13 +18,13 @@ import net.runelite.client.plugins.PluginDescriptor;
 @PluginDescriptor(
 	name = "Example"
 )
-public class ExamplePlugin extends Plugin
+public class ImmersiveObjectsPlugin extends Plugin
 {
 	@Inject
 	private Client client;
 
 	@Inject
-	private ExampleConfig config;
+	private ImmersiveObjects config;
 
 	@Override
 	protected void startUp() throws Exception
@@ -45,9 +47,25 @@ public class ExamplePlugin extends Plugin
 		}
 	}
 
-	@Provides
-	ExampleConfig provideConfig(ConfigManager configManager)
+	/*
+	@Subscribe
+	public void onGameTick(final GameTick event)
 	{
-		return configManager.getConfig(ExampleConfig.class);
+
+	}
+
+	@Subscribe
+	public void onCommandExecuted(CommandExecuted commandExecuted)
+	{
+		if (commandExecuted.getCommand() == "test")
+		{
+			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "command test received", null);
+		}
+	}*/
+
+	@Provides
+	ImmersiveObjects provideConfig(ConfigManager configManager)
+	{
+		return configManager.getConfig(ImmersiveObjects.class);
 	}
 }
